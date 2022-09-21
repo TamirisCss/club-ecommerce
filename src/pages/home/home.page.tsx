@@ -1,7 +1,13 @@
+import Categories from '../../categories/categories.component'
 import Header from '../../components/header/header.component'
 
 const HomePage = () => {
-  return <Header />
+  return (
+    <div>
+      <Header />
+      <Categories />
+    </div>
+  )
 }
 
 export default HomePage
