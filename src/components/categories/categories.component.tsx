@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import Category from '../types/category.types'
-import env from '../config/env.config'
+import Category from '../../types/category.types'
+import env from '../../config/env.config'
 
 import './categories.style.css'
 
