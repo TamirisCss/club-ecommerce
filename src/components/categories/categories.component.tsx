@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import Category from '../../types/category.types'
+import CategoryItem from '../category-item/category-item.component'
 import env from '../../config/env.config'
 
 import './categories.style.css'
@@ -25,7 +26,13 @@ const Categories = () => {
 
   return (
     <div className="categories-container">
-      <div className="categories-content"></div>
+      <div className="categories-content">
+        {categories.map((category) => (
+          <div key={category.id}>
+            <CategoryItem category={category} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
