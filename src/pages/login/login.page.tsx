@@ -13,6 +13,7 @@ import {
   LoginSubtitle,
   LoginInputContainer
 } from './login.style'
+import InputErrorMessage from '../../components/input-error-message/input-error-message.component'
 
 const LoginPage = () => {
   const {
@@ -40,8 +41,14 @@ const LoginPage = () => {
             <CustomInput
               hasError={!!errors?.email}
               placeholder="email"
-              {...register('email', { required: true })}
+              {...register('email', {
+                required: true
+              })}
             />
+
+            {errors?.email?.type === 'required' && (
+              <InputErrorMessage>email needed</InputErrorMessage>
+            )}
           </LoginInputContainer>
           <LoginInputContainer>
             <p>Password</p>
@@ -50,6 +57,10 @@ const LoginPage = () => {
               placeholder="password"
               {...register('password', { required: true })}
             />
+
+            {errors?.password?.type === 'required' && (
+              <InputErrorMessage>password needed</InputErrorMessage>
+            )}
           </LoginInputContainer>
           <CustomButton
             startIcon={<FiLogIn size={18} />}
