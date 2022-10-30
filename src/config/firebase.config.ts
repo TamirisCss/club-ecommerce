@@ -2,15 +2,15 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDKO0Sq1lSCMrhWZdRQsbsTDCm08fUWEII',
-  authDomain: 'club-ecommerce-49eb4.firebaseapp.com',
-  projectId: 'club-ecommerce-49eb4',
-  storageBucket: 'club-ecommerce-49eb4.appspot.com',
-  messagingSenderId: '723189392702',
-  appId: '1:723189392702:web:80b5f7651be0dd4407786f'
+  apiKey: 'AIzaSyAWe8hXyBijJ6_4fmYbwqFxDepUG8JwKBY',
+  authDomain: 'club-ecommerce-2-d1f9f.firebaseapp.com',
+  projectId: 'club-ecommerce-2-d1f9f',
+  storageBucket: 'club-ecommerce-2-d1f9f.appspot.com',
+  messagingSenderId: '141215725125',
+  appId: '1:141215725125:web:ad6a9ab67342688d24552c'
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
+export const app = initializeApp(firebaseConfig)
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app)
+export const db = getFirestore(app)
