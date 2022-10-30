@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import CustomButton from '../../components/custom-button/custom-button.component'
 import CustomInput from '../../components/custom-input/custom-input.component'
 import Header from '../../components/header/header.component'
+import InputErrorMessage from '../../components/input-error-message/input-error-message.component'
 
 import {
   SignUpContainer,
@@ -24,8 +25,11 @@ const SignUpPage = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm<SignUpForm>()
+
+  const watchPassword = watch('password')
 
   const handleSubmitPress = (data: SignUpForm) => {
     console.log({ data })
@@ -47,7 +51,9 @@ const SignUpPage = () => {
               placeholder="type your name"
               {...register('name', { required: true })}
             />
-            {errors?.name?.type === 'required' && <p>name required</p>}
+            {errors?.name?.type === 'required' && (
+              <InputErrorMessage>name required</InputErrorMessage>
+            )}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -57,7 +63,9 @@ const SignUpPage = () => {
               placeholder="second name"
               {...register('lastName', { required: true })}
             />
-            {errors?.lastName?.type === 'required' && <p>last Name required</p>}
+            {errors?.lastName?.type === 'required' && (
+              <InputErrorMessage>last Name required</InputErrorMessage>
+            )}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -67,8 +75,12 @@ const SignUpPage = () => {
               placeholder="type your email"
               {...register('email', { required: true })}
             />
-            {errors?.email?.type === 'required' && <p>email required</p>}
-            {errors?.email?.type === 'validate' && <p>use a valid email</p>}
+            {errors?.email?.type === 'required' && (
+              <InputErrorMessage>email required</InputErrorMessage>
+            )}
+            {errors?.email?.type === 'validate' && (
+              <InputErrorMessage>use a valid email</InputErrorMessage>
+            )}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -79,7 +91,9 @@ const SignUpPage = () => {
               type="password"
               {...register('password', { required: true })}
             />
-            {errors?.password?.type === 'required' && <p>password required</p>}
+            {errors?.password?.type === 'required' && (
+              <InputErrorMessage>password required</InputErrorMessage>
+            )}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -88,10 +102,22 @@ const SignUpPage = () => {
               hasError={!!errors?.passwordConfirmation}
               placeholder="confirm your password"
               type="password"
-              {...register('password', { required: true })}
+              {...register('password', {
+                required: true,
+                validate: (value) => {
+                  return value === watchPassword
+                }
+              })}
             />
             {errors?.passwordConfirmation?.type === 'required' && (
-              <p>confirmation of password is required</p>
+              <InputErrorMessage>
+                confirmation of password is required
+              </InputErrorMessage>
+            )}
+            {errors?.passwordConfirmation?.type === 'validate' && (
+              <InputErrorMessage>
+                confirmation of password is not the same
+              </InputErrorMessage>
             )}
           </SignUpInputContainer>
 
