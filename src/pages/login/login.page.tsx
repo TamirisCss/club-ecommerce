@@ -14,12 +14,16 @@ import {
   LoginSubtitle,
   LoginInputContainer
 } from './login.style'
+
 import {
   AuthError,
   AuthErrorCodes,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signInWithPopup
 } from 'firebase/auth'
-import { auth } from '../../config/firebase.config'
+
+import { auth, db, googleProvider } from '../../config/firebase.config'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 
 interface LoginForm {
   email: string
@@ -54,13 +58,42 @@ const LoginPage = () => {
     }
   }
 
+  const handleSignInWithGooglePress = async () => {
+    try {
+      const useCredentials = await signInWithPopup(auth, googleProvider)
+
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('id', '==', useCredentials.user.uid)
+        )
+      )
+      const user = querySnapshot.docs[0]?.data()
+
+      if (!user) {
+        const firstName = useCredentials.user.displayName?.split(' ')[0]
+        const lastName = useCredentials.user.displayName?.split(' ')[1]
+
+        await addDoc(collection(db, 'users'), {
+          id: useCredentials.user.uid,
+          email: useCredentials.user.email,
+          firstName,
+          lastName,
+          provider: 'google'
+        })
+      }
+    } catch (error) {}
+  }
+
   return (
     <>
       <Header />
       <LoginContainer>
         <LoginContent>
           <LoginHeadline>sign in</LoginHeadline>
-          <CustomButton startIcon={<BsGoogle size={18} />}>
+          <CustomButton
+            startIcon={<BsGoogle size={18} />}
+            onClick={handleSignInWithGooglePress}>
             Login whit Google
           </CustomButton>
           <LoginSubtitle>or use email</LoginSubtitle>
