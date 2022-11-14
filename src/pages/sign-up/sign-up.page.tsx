@@ -6,7 +6,11 @@ import CustomInput from '../../components/custom-input/custom-input.component'
 import Header from '../../components/header/header.component'
 import InputErrorMessage from '../../components/input-error-message/input-error-message.component'
 
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  AuthError,
+  AuthErrorCodes,
+  createUserWithEmailAndPassword
+} from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 import { auth, db } from '../../config/firebase.config'
 
@@ -30,6 +34,7 @@ const SignUpPage = () => {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors }
   } = useForm<SignUpForm>()
 
@@ -50,7 +55,11 @@ const SignUpPage = () => {
         email: userCredentials.user.email
       })
     } catch (error) {
-      console.log(error)
+      const _error = error as AuthError
+
+      if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
+        return setError('email', { type: 'alredyInUse' })
+      }
     }
   }
 
@@ -99,6 +108,9 @@ const SignUpPage = () => {
             {errors?.email?.type === 'validate' && (
               <InputErrorMessage>use a valid email</InputErrorMessage>
             )}
+            {errors?.email?.type === 'alredyInUse' && (
+              <InputErrorMessage>Email alredy in use</InputErrorMessage>
+            )}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -107,10 +119,15 @@ const SignUpPage = () => {
               hasError={!!errors?.password}
               placeholder="type your password"
               type="password"
-              {...register('password', { required: true })}
+              {...register('password', { required: true, minLength: 6 })}
             />
             {errors?.password?.type === 'required' && (
               <InputErrorMessage>password required</InputErrorMessage>
+            )}
+            {errors?.password?.type === 'minLength' && (
+              <InputErrorMessage>
+                password minimun 6 characteres
+              </InputErrorMessage>
             )}
           </SignUpInputContainer>
 
@@ -120,8 +137,9 @@ const SignUpPage = () => {
               hasError={!!errors?.passwordConfirmation}
               placeholder="confirm your password"
               type="password"
-              {...register('password', {
+              {...register('passwordConfirmation', {
                 required: true,
+                minLength: 6,
                 validate: (value) => {
                   return value === watchPassword
                 }
@@ -135,6 +153,11 @@ const SignUpPage = () => {
             {errors?.passwordConfirmation?.type === 'validate' && (
               <InputErrorMessage>
                 confirmation of password is not the same
+              </InputErrorMessage>
+            )}
+            {errors?.passwordConfirmation?.type === 'minLength' && (
+              <InputErrorMessage>
+                confirmation of password min 6 characteres
               </InputErrorMessage>
             )}
           </SignUpInputContainer>
