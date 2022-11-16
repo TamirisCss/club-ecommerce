@@ -1,8 +1,8 @@
-import { FunctionComponent, ReactNode } from 'react'
+import { FunctionComponent } from 'react'
 
 import { InputErrorMessageContainer } from './input-error-message.style'
 
-type InputErrorMessageProps = {
+interface InputErrorMessageProps {
   children: React.ReactNode // 👈️ added type for children
 }
 
