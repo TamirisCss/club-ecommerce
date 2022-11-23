@@ -24,6 +24,9 @@ import {
 
 import { auth, db, googleProvider } from '../../config/firebase.config'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../contexts/user.context'
+import { useNavigate } from 'react-router-dom'
 
 interface LoginForm {
   email: string
@@ -37,6 +40,13 @@ const LoginPage = () => {
     setError,
     formState: { errors }
   } = useForm<LoginForm>()
+
+  const { isAuthenticated } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    navigate('/')
+  }, [isAuthenticated])
 
   const handleSubmitPress = async (data: LoginForm) => {
     try {

@@ -20,6 +20,9 @@ import {
   SignUpContent,
   SignUpInputContainer
 } from './sign-up.style'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../contexts/user.context'
+import { useNavigate } from 'react-router-dom'
 
 interface SignUpForm {
   name: string
@@ -39,6 +42,15 @@ const SignUpPage = () => {
   } = useForm<SignUpForm>()
 
   const watchPassword = watch('password')
+
+  const { isAuthenticated } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
 
   const handleSubmitPress = async (data: SignUpForm) => {
     try {
