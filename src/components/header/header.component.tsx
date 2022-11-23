@@ -18,7 +18,7 @@ const Header = () => {
   const { isAuthenticated } = useContext(UserContext)
 
   const handleLogoClick = () => {
-    navigate('./')
+    navigate('/')
   }
 
   const handleLoginClick = () => {
@@ -26,7 +26,7 @@ const Header = () => {
   }
 
   const handleSignUpClick = () => {
-    navigate('./sign-up')
+    navigate('/sign-up')
   }
 
   return (
