@@ -5,18 +5,39 @@
     "node": true
   },
   "extends": ["plugin:react/recommended", "standard-with-typescript"],
-  "overrides": [],
+  "overrides": [
+    // {
+    //   "files": ["*.jsx", "*.tsx"],
+    //   "rules": {
+    //     "@typescript-eslint/explicit-module-boundary-types": "off"
+    //   }
+    // }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
+    "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      { "allowTypedFunctionExpressions": false }
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "arguments": false,
+          "attributes": false
+        }
+      }
+    ]
   }
 }
