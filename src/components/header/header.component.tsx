@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { BsCart3 } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../../config/firebase.config'
+import { CartContext } from '../../contexts/cart.context'
 import { UserContext } from '../../contexts/user.context'
 
 import {
@@ -16,6 +17,7 @@ const Header = () => {
   const navigate = useNavigate()
 
   const { isAuthenticated } = useContext(UserContext)
+  const { toggleCart } = useContext(CartContext)
 
   const handleLogoClick = () => {
     navigate('/')
@@ -51,7 +53,7 @@ const Header = () => {
           </>
         )}
 
-        <HeaderItem>
+        <HeaderItem onClick={toggleCart}>
           <BsCart3 size={25} />
           <p style={{}}>5</p>
         </HeaderItem>
