@@ -6,6 +6,7 @@ interface ICartContext {
   isVisible: boolean
   products: CartProduct[]
   productsTotalPrice: number
+  productsCount: number
   toggleCart: () => void
   addProductsToCart: (product: Product) => void
   removeProductFromCart: (productId: string) => void
@@ -21,6 +22,7 @@ export const CartContext = createContext<ICartContext>({
   isVisible: false,
   products: [],
   productsTotalPrice: 0,
+  productsCount: 0,
   toggleCart: () => {},
   addProductsToCart: () => {},
   removeProductFromCart: () => {},
@@ -90,12 +92,19 @@ const CartContextProvider: FunctionComponent<children> = ({ children }) => {
     }, 0)
   }, [products])
 
+  const productsCount = useMemo(() => {
+    return products.reduce((acc, currentProduct) => {
+      return acc + currentProduct.quantity
+    }, 0)
+  }, [products])
+
   return (
     <CartContext.Provider
       value={{
         isVisible,
         products,
         productsTotalPrice,
+        productsCount,
         toggleCart,
         addProductsToCart,
         removeProductFromCart,
