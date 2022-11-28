@@ -1,4 +1,5 @@
 import { FunctionComponent, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { BsBagCheck } from 'react-icons/bs'
 
 //Utilities
@@ -18,6 +19,13 @@ import {
 
 const Checkout: FunctionComponent = () => {
   const { products, productsTotalPrice } = useContext(CartContext)
+
+  const navigate = useNavigate()
+
+  const handleFinishPurchase = () => {
+    navigate('/payment-confirmation')
+  }
+
   return (
     <CheckoutContainer>
       <CheckoutTitle>Checkout</CheckoutTitle>
@@ -31,7 +39,9 @@ const Checkout: FunctionComponent = () => {
           </CheckoutProducts>
           <CheckoutTotal>Total: R${productsTotalPrice}</CheckoutTotal>
 
-          <CustomButton startIcon={<BsBagCheck />}>
+          <CustomButton
+            startIcon={<BsBagCheck />}
+            onClick={handleFinishPurchase}>
             Finish purchase
           </CustomButton>
         </>
