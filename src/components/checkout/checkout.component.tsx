@@ -1,16 +1,20 @@
 import { FunctionComponent, useContext } from 'react'
-import { CartContext } from '../../contexts/cart.context'
-import CustomButton from '../custom-button/custom-button.component'
-
 import { BsBagCheck } from 'react-icons/bs'
 
+//Utilities
+import { CartContext } from '../../contexts/cart.context'
+
+//Components
+import CustomButton from '../custom-button/custom-button.component'
+import CartItem from '../cart-item/cart-item.component'
+
+//Styles
 import {
   CheckoutContainer,
   CheckoutProducts,
   CheckoutTitle,
   CheckoutTotal
 } from './checkout.style'
-import CartItem from '../cart-item/cart-item.component'
 
 const Checkout: FunctionComponent = () => {
   const { products, productsTotalPrice } = useContext(CartContext)

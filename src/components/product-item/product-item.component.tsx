@@ -1,15 +1,19 @@
 import { FunctionComponent, useContext } from 'react'
-import Product from '../../types/product.types'
-import CustomButton from '../custom-button/custom-button.component'
 import { BsCartPlus } from 'react-icons/bs'
 
+//Utilities
+import Product from '../../types/product.types'
+import { CartContext } from '../../contexts/cart.context'
+
+//Components
+import CustomButton from '../custom-button/custom-button.component'
+
+//Styles
 import {
   ProductContainer,
   ProductImage,
   ProductInfo
 } from './product-item.style'
-import { CartContext } from '../../contexts/cart.context'
-
 interface ProductItemProps {
   product: Product
 }

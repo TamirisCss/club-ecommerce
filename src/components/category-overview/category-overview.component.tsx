@@ -1,7 +1,12 @@
-import React, { FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
+
+//Utilities
 import Category from '../../types/category.types'
+
+//Components
 import ProductItem from '../product-item/product-item.component'
 
+//Tyles
 import {
   CategoryContainer,
   CategoryTitle,
