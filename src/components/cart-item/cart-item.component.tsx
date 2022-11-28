@@ -1,6 +1,11 @@
 import { FunctionComponent, useContext } from 'react'
-import CartProduct from '../../types/cart.types'
 import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from 'react-icons/ai'
+import { CartContext } from '../../contexts/cart.context'
+
+//Utilities
+import CartProduct from '../../types/cart.types'
+
+//Styles
 import {
   CartItemContainer,
   CartItemImage,
@@ -8,7 +13,6 @@ import {
   CartItemQuantity,
   RemoveButton
 } from './cart-item.style'
-import { CartContext } from '../../contexts/cart.context'
 
 interface CartItemProps {
   product: CartProduct

@@ -1,11 +1,14 @@
 import { useContext, useEffect } from 'react'
 
+//Components
 import CategoryItem from '../category-item/category-item.component'
+import Loading from '../loading/loading.componet'
 
+//Styles
 import { CategoriesContainer, CategoriesContent } from './categories.style'
 
+//Utilities
 import { CategoryContext } from '../../contexts/category.context'
-import Loading from '../loading/loading.componet'
 
 const Categories = () => {
   const { categories, fetchCategories, isLoading } = useContext(CategoryContext)

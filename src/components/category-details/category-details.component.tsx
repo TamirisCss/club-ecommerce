@@ -1,19 +1,24 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
 import { FunctionComponent, useEffect, useState } from 'react'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { BiChevronLeft } from 'react-icons/bi'
+import { useNavigate } from 'react-router-dom'
+
+//Utilities
 import { db } from '../../config/firebase.config'
 import { categoryConverter } from '../../converters/firestore.converters'
 import Category from '../../types/category.types'
-import Loading from '../loading/loading.componet'
-import { BiChevronLeft } from 'react-icons/bi'
 
+//Components
+import ProductItem from '../product-item/product-item.component'
+import Loading from '../loading/loading.componet'
+
+//Styles
 import {
   Container,
   CategoryTitle,
   ProductsContainer,
   IconContainer
 } from './category-details.style'
-import ProductItem from '../product-item/product-item.component'
-import { useNavigate } from 'react-router-dom'
 
 interface CategoryDetailsProps {
   categoryId: string

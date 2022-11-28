@@ -1,8 +1,14 @@
 import { FunctionComponent, useContext, useEffect } from 'react'
+
+//Styles
+import { Container } from './categories-overview.style'
+
+//Utilities
 import { CategoryContext } from '../../contexts/category.context'
+
+//Components
 import CategoryOverview from '../category-overview/category-overview.component'
 import Loading from '../loading/loading.componet'
-import { Container } from './categories-overview.style'
 
 const CategoriesOverview: FunctionComponent = () => {
   const { categories, fetchCategories, isLoading } = useContext(CategoryContext)
