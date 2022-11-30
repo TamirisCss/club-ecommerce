@@ -1,5 +1,6 @@
 import User from '../../../types/user.types'
 import UserActionTypes from './user.action-types'
+import { UserActions } from './user.actions'
 
 interface InitialState {
   currentUser: User | null
@@ -11,7 +12,10 @@ const inicialState: InitialState = {
   isAuthenticated: false
 }
 
-const userReducer = (state = inicialState, action: any) => {
+const userReducer = (
+  state = inicialState,
+  action: UserActions
+): InitialState => {
   switch (action.type) {
     case UserActionTypes.LOGIN:
       return { ...state, currentUser: action.payload, isAuthenticated: true }

@@ -1,7 +1,6 @@
 import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 
 import CustomButton from '../../components/custom-button/custom-button.component'
 import CustomInput from '../../components/custom-input/custom-input.component'
@@ -28,6 +27,7 @@ import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading.componet'
+import { userAppSelector } from '../../hooks/redux.hooks'
 
 interface LoginForm {
   email: string
@@ -44,8 +44,8 @@ const LoginPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = userAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
 
   const navigate = useNavigate()

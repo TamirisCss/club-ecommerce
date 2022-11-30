@@ -24,7 +24,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading.componet'
-import { useSelector } from 'react-redux'
+import { userAppSelector } from '../../hooks/redux.hooks'
 
 interface SignUpForm {
   name: string
@@ -46,8 +46,8 @@ const SignUpPage = () => {
 
   const watchPassword = watch('password')
 
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = userAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
 
   const navigate = useNavigate()
