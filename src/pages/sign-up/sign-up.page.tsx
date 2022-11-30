@@ -20,10 +20,11 @@ import {
   SignUpContent,
   SignUpInputContainer
 } from './sign-up.style'
-import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../contexts/user.context'
+
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading.componet'
+import { useSelector } from 'react-redux'
 
 interface SignUpForm {
   name: string
@@ -45,7 +46,10 @@ const SignUpPage = () => {
 
   const watchPassword = watch('password')
 
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
+
   const navigate = useNavigate()
 
   useEffect(() => {
