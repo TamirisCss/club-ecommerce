@@ -1,6 +1,7 @@
 import { FunctionComponent, useContext } from 'react'
 import CustomButton from '../custom-button/custom-button.component'
 import { BsCartCheck } from 'react-icons/bs'
+import { useDispatch } from 'react-redux'
 
 import {
   CartContainer,
@@ -13,21 +14,29 @@ import {
 import { CartContext } from '../../contexts/cart.context'
 import CartItem from '../cart-item/cart-item.component'
 import { useNavigate } from 'react-router-dom'
+import { userAppSelector } from '../../hooks/redux.hooks'
+import { toggleCart } from '../../store/reducers/user/cart/cart.actions'
 
 const Cart: FunctionComponent = () => {
-  const { isVisible, products, productsTotalPrice, productsCount, toggleCart } =
-    useContext(CartContext)
+  const { isVisible, products } = userAppSelector((state) => state.cartReducer)
+
+  const { productsTotalPrice, productsCount } = useContext(CartContext)
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleGoToCheckout = () => {
     navigate('/checkout')
-    toggleCart()
+    dispatch(toggleCart())
+  }
+
+  const handleEscapeAreaClick = () => {
+    dispatch(toggleCart())
   }
 
   return (
     <CartContainer isVisible={isVisible}>
-      <CartEscapeArea onClick={toggleCart} />
+      <CartEscapeArea onClick={handleEscapeAreaClick} />
       <CartContent>
         <CartTitle>Your Cart</CartTitle>
         {products.map((product) => (

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CartContext } from '../../contexts/cart.context'
 import { auth } from '../../config/firebase.config'
 import { logoutUser } from '../../store/reducers/user/user.actions'
+import { toggleCart } from '../../store/reducers/user/cart/cart.actions'
 
 //Styles
 import {
@@ -26,7 +27,7 @@ const Header = () => {
     (rootReducer: any) => rootReducer.userReducer
   )
 
-  const { toggleCart, productsCount } = useContext(CartContext)
+  const { productsCount } = useContext(CartContext)
 
   const handleLogoClick = () => {
     navigate('/')
@@ -49,6 +50,10 @@ const Header = () => {
     signOut(auth)
   }
 
+  const handleCartClick = () => {
+    dispatch(toggleCart())
+  }
+
   return (
     <HeaderContainer>
       <HeaderTitle onClick={handleLogoClick}>CLUB CLOTHING</HeaderTitle>
@@ -67,7 +72,7 @@ const Header = () => {
           </>
         )}
 
-        <HeaderItem onClick={toggleCart}>
+        <HeaderItem onClick={handleCartClick}>
           <BsCart3 size={25} />
           <p style={{ marginLeft: 5 }}>{productsCount}</p>
         </HeaderItem>
