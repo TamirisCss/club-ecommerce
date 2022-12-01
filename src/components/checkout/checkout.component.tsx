@@ -1,9 +1,10 @@
 import { FunctionComponent, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BsBagCheck } from 'react-icons/bs'
+import { userAppSelector } from '../../hooks/redux.hooks'
 
 //Utilities
-import { CartContext } from '../../contexts/cart.context'
+import { selectProductsTotalPrice } from '../../store/reducers/user/cart/cart.selector'
 
 //Components
 import CustomButton from '../custom-button/custom-button.component'
@@ -18,7 +19,8 @@ import {
 } from './checkout.style'
 
 const Checkout: FunctionComponent = () => {
-  const { products, productsTotalPrice } = useContext(CartContext)
+  const { products } = userAppSelector((state) => state.cartReducer)
+  const productsTotalPrice = userAppSelector(selectProductsTotalPrice)
 
   const navigate = useNavigate()
 
